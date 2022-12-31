@@ -23,3 +23,4 @@ Route::get('/', function () {
 Route::get('/home', 'HomePageController@index');
 Route::get('/blog', 'BlogPageController@index');
 Route::get('/portfolio', 'PortfolioPageController@index');
+Route::get('/post', 'PostController@index');
