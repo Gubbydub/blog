@@ -145,7 +145,7 @@ class PostController extends Controller
         ], [
             'content' => 'Test created post 9',
             'image' => 'upadate 9',
-            'like' => 660,
+            'like' => 667,
             'is_published' => 0,
         ]);
         dd('test');
