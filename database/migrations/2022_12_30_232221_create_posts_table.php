@@ -21,6 +21,8 @@ class CreatePostsTable extends Migration
             $table->unsignedBigInteger('like')->nullable();
             $table->boolean('is_published')->default(1);
             $table->timestamps();
+
+            $table->softDeletes();//мягкое удаление из базы - SoftDeletes
         });
     }
 

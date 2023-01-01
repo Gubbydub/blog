@@ -8,9 +8,10 @@ use PhpParser\Node\Expr\AssignOp\Pow;
 
 class PostController extends Controller
 {
-    public function index() {
 
-// ---------------- find
+    public function index()
+    {
+        // ---------------- find
 
         // $post = Post::find(1);       
         // dump($post->id,
@@ -19,7 +20,7 @@ class PostController extends Controller
         //      $post->like);
         // dd($post);
 
-// ---------------- all
+        // ---------------- all
 
         // $posts = Post::all();
         // foreach($posts as $post) {
@@ -29,55 +30,109 @@ class PostController extends Controller
         //              $post->content);
         //          }
 
-// ---------------- WHERE 
-    // - get      
+        // ---------------- WHERE 
+        // - get      
         // $posts = Post::where('is_published', 1)->get();
         // foreach ($posts as $post) {
         //         dump($post->title,
         //             $post->content);
         // }        
-    // - first
+        // - first
         //  $post1 = Post::where('is_published', 0)->first();
         //  dump($post1->title);
     }
 
-  // ---------------- create
-      
-  public function create() {
+    // ---------------- create ----------------
 
-        $postArr = [
-            [
-                'title' => 'Test created post',
-                'content' => 'Test created text content',
-                'image' => 'image test/link',
-                'like' => 51,
-                'is_published' => 1,
-            ],
-            [
-                'title' => 'Test created post',
-                'content' => 'Test created text content',
-                'image' => 'image test/link',
-                'like' => 51,
-                'is_published' => 1,
-            ],
-        ];
+    public function create()
+    {
+        //     $postArr = [
+        //         [
+        //             'title' => 'Test created post',
+        //             'content' => 'Test created text content',
+        //             'image' => 'image test/link',
+        //             'like' => 51,
+        //             'is_published' => 1,
+        //         ],
+        //         [
+        //             'title' => 'Test created post',
+        //             'content' => 'Test created text content',
+        //             'image' => 'image test/link',
+        //             'like' => 51,
+        //             'is_published' => 1,
+        //         ],
+        //     ];
 
-        foreach($postArr as $item){
-            Post::create($item);
-        }
-        dd( 'created');
-    // ---------test create post
-        // Post::create(
-        //     [
-        //         'title' => 'Test created post',
-        //         'content' => 'Test created text content',
-        //         'image' => 'image test/link',
-        //         'like' => 51,
-        //         'is_published' => 1,
-        //     ]);
+        //     foreach($postArr as $item){
+        //         Post::create($item);
+        //     }
         //     dd( 'created');
-        
-  }
+        // // ---------test create post
+        Post::create(
+            [
+                'title' => 'Test created post',
+                'content' => 'Test created text content',
+                'image' => 'image test/link',
+                'like' => 51,
+                'is_published' => 1,
+            ]
+        );
+        dd('created');
+    }
+    // ---------------- update ----------------
 
-  
+    public function update()
+    {
+        $post = Post::find(9);
+        $post->update([
+            'title' => 'update 2',
+            'content' => 'upadate 2',
+            'image' => 'upadate 2',
+            'like' => 70,
+            'is_published' => 0,
+        ]);
+        dump('updatet');
+
+        //---my version----
+        // $post = Post::find(5)->update([
+        //     'title' => 'update',
+        //     'content' => 'update',
+        // ]);
+        // dump('updatet');
+
+    }
+    // ---------------- delete ----------------
+    public function delete()
+    {
+        // $post = Post::find(3);
+
+        // if ($post == false) {
+        //     dd('id 5 not found');
+        // } else {
+        //     $post->delete();
+        // }
+        // dd('deleted');
+
+        // //---my version----
+        // $post = Post::find(5)->delete();
+        // dd('deleted');
+
+        //восстановление после мягкого удаления - SoftDeletes
+        $post = Post::withTrashed()->find(3);
+        $post->restore();
+    }
+    // ---------------- firstOrCreate ----------------
+    public function firstOrCreat()
+    {
+        $post = Post::firstOrCreat([
+            'title' => 'update 2',
+        ], [
+            'title' => 'update 2',
+            'content' => 'upadate 2',
+            'image' => 'upadate 2',
+            'like' => 70,
+            'is_published' => 0,
+        ]);
+    }
+    // ---------------- updateOrCreate ----------------
 }

@@ -25,3 +25,7 @@ Route::get('/blog', 'BlogPageController@index');
 Route::get('/portfolio', 'PortfolioPageController@index');
 Route::get('/post', 'PostController@index');
 Route::get('/post/create', 'PostController@create');
+Route::get('/post/update', 'PostController@update');
+Route::get('/post/delete', 'PostController@delete');
+Route::get('/post/firstOrCreat', 'PostController@firstOrCreat');
+Route::get('/post/updateOrCreate', 'PostController@updateOrCreate');
