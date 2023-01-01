@@ -40,6 +40,7 @@ class PostController extends Controller
         // - first
         //  $post1 = Post::where('is_published', 0)->first();
         //  dump($post1->title);
+        dd('method index');
     }
 
     // ---------------- create ----------------
@@ -122,17 +123,31 @@ class PostController extends Controller
         $post->restore();
     }
     // ---------------- firstOrCreate ----------------
-    public function firstOrCreat()
+    //если нашел - не вносит изменения, если не нашел - создаст новую
+    public function firstOrCreate() 
     {
-        $post = Post::firstOrCreat([
-            'title' => 'update 2',
+        $post = Post::firstOrCreate([
+            'title' => 'Test created post 10',
         ], [
-            'title' => 'update 2',
-            'content' => 'upadate 2',
+            'content' => 'Test created text content 11',
             'image' => 'upadate 2',
             'like' => 70,
             'is_published' => 0,
         ]);
+        dd('test');
     }
     // ---------------- updateOrCreate ----------------
+    //если нашел - вносит изменения, если не нашел - создаст новую
+    public function updateOrCreate()
+    {
+        $post = Post::updateOrCreate([
+            'title' => 'Test created post 9',
+        ], [
+            'content' => 'Test created post 9',
+            'image' => 'upadate 9',
+            'like' => 70,
+            'is_published' => 0,
+        ]);
+        dd('test');
+    }
 }
