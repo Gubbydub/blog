@@ -11,6 +11,9 @@ class PostController extends Controller
 
     public function index()
     {
+        $posts = Post::all();
+        // dd($posts);
+        return view('posts', compact('posts'));
         // ---------------- find
 
         // $post = Post::find(1);       
@@ -40,7 +43,8 @@ class PostController extends Controller
         // - first
         //  $post1 = Post::where('is_published', 0)->first();
         //  dump($post1->title);
-        dd('method index');
+
+        // dd('method index');
     }
 
     // ---------------- create ----------------
@@ -124,7 +128,7 @@ class PostController extends Controller
     }
     // ---------------- firstOrCreate ----------------
     //если нашел - не вносит изменения, если не нашел - создаст новую
-    public function firstOrCreate() 
+    public function firstOrCreate()
     {
         $post = Post::firstOrCreate([
             'title' => 'Test created post 10',
@@ -151,4 +155,3 @@ class PostController extends Controller
         dd('test');
     }
 }
-
