@@ -22,7 +22,22 @@ Route::get('/', function () {
 // });
 
 Route::get('/post', 'PostController@index')->name('post.index');
-Route::get('/post/create', 'PostController@create');
+Route::get('/post/create', 'PostController@create')->name('post.create');
+
+// GRUD store
+Route::post('/post', 'PostController@store')->name('post.store');
+// GRUD show
+Route::get('/post/{post}', 'PostController@show')->name('post.show');
+// GRUD edit
+Route::get('/post/{post}/edit', 'PostController@edit')->name('post.edit');
+// GRUD update
+Route::patch('/post/{post}', 'PostController@update')->name('post.update');
+// GRUD delete
+Route::delete('/post/{post}', 'PostController@destroy')->name('post.destroy');
+
+//Test GRUD for category --resource
+Route::resource('/categorys', 'CategoryController');
+
 Route::get('/post/update', 'PostController@update');
 Route::get('/post/delete', 'PostController@delete');
 Route::get('/post/firstOrCreate', 'PostController@firstOrCreate');
