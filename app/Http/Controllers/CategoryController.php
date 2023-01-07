@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Post;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +15,17 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        dd('priveet');
+        // $posts = Post::all();
+        $category = Category::with(['posts'])->findOrFail(1);
+
+        dd($category->posts); // если hasMany прописан в модели Category
+        
+        // $posts = Post::where('category_id', $category->id)->get();
+        // dd($posts);
+
+        // dd($category->title);
+        // $categories = Category::all();
+        // dd($categories); 
     }
 
     /**

@@ -38,6 +38,10 @@ Route::delete('/post/{post}', 'PostController@destroy')->name('post.destroy');
 //Test GRUD for category --resource
 Route::resource('/categorys', 'CategoryController');
 
+//Test GRUD for game --resource
+Route::resource('/games', 'GameController');
+
+
 Route::get('/post/update', 'PostController@update');
 Route::get('/post/delete', 'PostController@delete');
 Route::get('/post/firstOrCreate', 'PostController@firstOrCreate');

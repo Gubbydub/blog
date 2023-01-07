@@ -23,6 +23,9 @@
                             <a class="nav-link" href="{{ route('post.index') }}">Posts</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('games.index') }}">Games</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('about.index') }}">About</a>
                         </li>
                         <li class="nav-item">

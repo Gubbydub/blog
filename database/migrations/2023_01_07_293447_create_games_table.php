@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+class CreateGamesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('content');
@@ -26,14 +26,13 @@ class CreatePostsTable extends Migration
             
             $table->unsignedBigInteger('category_id')->nullable();
 
-            $table->index('category_id', 'post_category_idx');
+            $table->index('category_id', 'game_category_idx');
 
-            $table->foreign('category_id', 'post_category_fk')
-            ->on('categories')
+            $table->foreign('category_id', 'game_category_fk')
+            ->on('game_categories')
             ->references('id')
             ->onDelete('cascade')
             ->onUpdate('cascade');
-
         });
     }
 
@@ -44,6 +43,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('games');
     }
 }
