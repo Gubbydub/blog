@@ -11,6 +11,7 @@
                 <th scope="col">id</th>
                 <th scope="col">title</th>
                 <th scope="col">content</th>
+                <th scope="col">category</th>
                 <th scope="col">likes</th>
             </tr>
         </thead>
@@ -19,6 +20,7 @@
                 <th scope="row">{{ $post->id}}</th>
                 <td>{{ $post->title}}</td>
                 <td>{{ $post->content}}</td>
+                <td>{{ $post->category->title}}</td>
                 <td>{{ $post->like}}</td>
             </tr>
         </tbody>

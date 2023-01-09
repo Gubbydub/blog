@@ -15,17 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // $posts = Post::all();
-        $category = Category::with(['posts'])->findOrFail(1);
-
-        dd($category->posts); // если hasMany прописан в модели Category
-        
-        // $posts = Post::where('category_id', $category->id)->get();
-        // dd($posts);
-
-        // dd($category->title);
-        // $categories = Category::all();
-        // dd($categories); 
+       //
     }
 
     /**

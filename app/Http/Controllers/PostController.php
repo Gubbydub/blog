@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Category;
+use App\PostTag;
+use App\Tag;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\AssignOp\Pow;
 
@@ -11,46 +14,38 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::all();        
+        $posts = Post::all();
         return view('post.index', compact('posts'));
-        // ---------------- find
 
-        // $post = Post::find(1);       
-        // dump($post->id,
-        //      $post->title,
-        //      $post->content,
-        //      $post->like);
-        // dd($post);
+        // ---------------- Тестовая проверка связей многие к многим --------------
+        // $post = Post::find(1);
+        // dd($post->tags);
+        // $tag = Tag::find(1);
+        // dd($tag->posts);
 
-        // ---------------- all
+        // ---------------- Тестовая проверка связей 1 к многим --------------
+        // $category = Category::find(1);
+        // dd($category->title);
+        // dd($category->posts); // если hasMany прописан в модели Category
+
+        // $posts = Post::where('category_id', $category->id)->get();
+        // dd($posts);
+
+
 
         // $posts = Post::all();
-        // foreach($posts as $post) {
-        //         // $test = $post->title;
-        //         // echo $test;
-        //         dump($post->title,
-        //              $post->content);
-        //          }
-
-        // ---------------- WHERE 
-        // - get      
-        // $posts = Post::where('is_published', 1)->get();
-        // foreach ($posts as $post) {
-        //         dump($post->title,
-        //             $post->content);
-        // }        
-        // - first
-        //  $post1 = Post::where('is_published', 0)->first();
-        //  dump($post1->title);
-
-        // dd('method index');
+        // dd($posts);
+        // $categories = Category::all();
+        // dd($categories); 
     }
 
     // ---------------- CRUD create ----------------
 
     public function create()
     {
-        return view('post.create');
+        $tags = Tag::all();
+        $categories = Category::all();
+        return view('post.create', compact('categories', 'tags'));
         //     $postArr = [
         //         [
         //             'title' => 'Test created post',
@@ -88,11 +83,35 @@ class PostController extends Controller
     public function store()
     {
         $data = request()->validate([
-            'title' => 'string',
+            'title' => 'required|string',
             'content' => 'string',
+            'category_id' => '',
+            'tags' => 'required',
             'like' => 'integer',
         ]);
-        Post::create($data);
+
+
+        $tags = $data['tags'];
+        unset($data['tags']);
+        // dd($tags, $data);
+
+        //Второй способ добавления поста с несколькими тегами - Праввильный
+        $post = Post::create($data)
+            ->tags()
+            ->attach($tags, [
+                'created_at' => new \DateTime('now'),
+                'updated_at' => new \DateTime('now')
+            ]);
+
+        //Первый способ добавления поста с несколькими тегами
+        // $post = Post::create($data);
+        // foreach ($tags as $tag) {
+        //     PostTag::firstOrCreate([
+        //         'tag_id' => $tag,
+        //         'post_id' => $post->id,
+        //     ]);
+        // }
+
         return redirect()->route('post.index');
     }
     // ---------------- CRUD show ----------------
@@ -103,7 +122,16 @@ class PostController extends Controller
     // ---------------- CRUD edit ----------------
     public function edit(Post $post)
     {
-        return view('post.edit', compact('post'));
+        $tags = Tag::all();
+        $categories = Category::all();
+        return view(
+            'post.edit',
+            compact(
+                'post',
+                'categories',
+                'tags'
+            )
+        );
     }
 
     // ---------------- CRUD update ----------------
@@ -112,9 +140,17 @@ class PostController extends Controller
         $data = request()->validate([
             'title' => 'string',
             'content' => 'string',
+            'category_id' => '',
+            'tags' => 'required',
             'like' => 'integer',
         ]);
+        $tags = $data['tags'];
+        unset($data['tags']);
+        // dd($tags, $data);
+
         $post->update($data);
+        $post->tags()->sync($tags);
+
         return redirect()->route('post.show', $post->id);
     }
 

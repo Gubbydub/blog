@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Category;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\AssignOp\Pow;
 
@@ -44,7 +45,39 @@ class PostController extends Controller
         //  $post1 = Post::where('is_published', 0)->first();
         //  dump($post1->title);
 
-        // dd('method index');
+
+// ---------------- Тестовая проверка связей многие к многим --------------
+        // $post = Post::find(1);
+        // dd($post->tags);
+        // $tag = Tag::find(1);
+        // dd($tag->posts);
+
+        // ---------------- Тестовая проверка связей 1 к многим --------------
+        // $category = Category::find(1);
+        // dd($category->title);
+        // dd($category->posts); // если hasMany прописан в модели Category
+
+        // $posts = Post::where('category_id', $category->id)->get();
+        // dd($posts);
+
+        // $posts = Post::all();
+        // dd($posts);
+        // $categories = Category::all();
+        // dd($categories);
+        // ----------------  Тестовая проверка связей    --------------
+        
+        $category = Category::find(1);
+        // если hasMany прописан в модели Category----
+        dd($category->posts); 
+
+        // Проверка связи без добавления методов в модели----
+        // $posts = Post::where('category_id', $category->id)->get();
+        // dd($posts);
+
+        // dd($category->title);
+        // $categories = Category::all();
+        // dd($categories); 
+        // ---------------- Тестовая проверка связей end --------------
     }
 
     // ---------------- create ----------------

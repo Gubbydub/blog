@@ -2,7 +2,7 @@
 @section('content')
 
 <div>
-    Posts page
+    Games page
 </div>
 <div>
     <table class="table">
