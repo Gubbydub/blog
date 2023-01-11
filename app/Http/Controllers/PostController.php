@@ -184,25 +184,25 @@ class PostController extends Controller
     }
 
     // ---------------- delete ----------------
-    // public function delete()
-    // {
-    //     // $post = Post::find(3);
+    public function delete()
+    {
+        // $post = Post::find(3);
 
-    //     // if ($post == false) {
-    //     //     dd('id 5 not found');
-    //     // } else {
-    //     //     $post->delete();
-    //     // }
-    //     // dd('deleted');
+        // if ($post == false) {
+        //     dd('id 5 not found');
+        // } else {
+        //     $post->delete();
+        // }
+        // dd('deleted');
 
-    //     // //---my version----
-    //     // $post = Post::find(5)->delete();
-    //     // dd('deleted');
+        // //---my version----
+        // $post = Post::find(5)->delete();
+        // dd('deleted');
 
-    //     //восстановление после мягкого удаления - SoftDeletes
-    //     $post = Post::withTrashed()->find(3);
-    //     $post->restore();
-    // }
+        //восстановление после мягкого удаления - SoftDeletes
+        $post = Post::withTrashed()->find(3);
+        $post->restore();
+    }
     // ---------------- firstOrCreate ----------------
     //если нашел - не вносит изменения, если не нашел - создаст новую
     public function firstOrCreate()

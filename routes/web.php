@@ -21,24 +21,45 @@ Route::get('/', function () {
 //     return "test";
 // });
 
-Route::get('/post', 'PostController@index')->name('post.index');
-Route::get('/post/create', 'PostController@create')->name('post.create');
+//Route::group ------------ Для одноименного типа контроллеров
+Route::group(['namespace' => 'Post'], function() 
+{
+    Route::get('/post', 'IndexController')->name('post.index');
+    Route::get('/post/create', 'CreateController')->name('post.create');
+    
+    // GRUD store
+    Route::post('/post', 'StoreController')->name('post.store');
+    // GRUD show
+    Route::get('/post/{post}', 'ShowController')->name('post.show');
+    // GRUD edit
+    Route::get('/post/{post}/edit', 'EditController')->name('post.edit');
+    // GRUD update
+    Route::patch('/post/{post}', 'UpdateController')->name('post.update');
+    // GRUD delete
+    Route::delete('/post/{post}', 'DestroyController')->name('post.destroy');
+});
 
-// GRUD store
-Route::post('/post', 'PostController@store')->name('post.store');
-// GRUD show
-Route::get('/post/{post}', 'PostController@show')->name('post.show');
-// GRUD edit
-Route::get('/post/{post}/edit', 'PostController@edit')->name('post.edit');
-// GRUD update
-Route::patch('/post/{post}', 'PostController@update')->name('post.update');
-// GRUD delete
-Route::delete('/post/{post}', 'PostController@destroy')->name('post.destroy');
 
-//Test GRUD for category --resource
+//Route:: ------------ Обычный вариант контроллеров
+
+// Route::get('/post', 'PostController@index')->name('post.index');
+// Route::get('/post/create', 'PostController@create')->name('post.create');
+
+// // GRUD store
+// Route::post('/post', 'PostController@store')->name('post.store');
+// // GRUD show
+// Route::get('/post/{post}', 'PostController@show')->name('post.show');
+// // GRUD edit
+// Route::get('/post/{post}/edit', 'PostController@edit')->name('post.edit');
+// // GRUD update
+// Route::patch('/post/{post}', 'PostController@update')->name('post.update');
+// // GRUD delete
+// Route::delete('/post/{post}', 'PostController@destroy')->name('post.destroy');
+
+//Test GRUD for category --resource - Ресурсный вариант контроллеров
 Route::resource('/categorys', 'CategoryController');
 
-//Test GRUD for game --resource
+//Test GRUD for game --resource - Ресурсный вариант контроллеров
 Route::resource('/games', 'GameController');
 
 
