@@ -36,6 +36,9 @@
         </option>
         @endforeach
       </select>
+      @error('tags')
+      <div class="alert alert-danger">{{ $message }}</div>
+      @enderror
     </div>
     <div class="form-group">
       <label for="like">like</label>

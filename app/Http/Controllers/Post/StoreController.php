@@ -7,21 +7,14 @@ use App\Http\Requests\Post\StoreRequest;
 use App\Post;
 use Illuminate\Http\Request;
 
-class StoreController extends Controller
+class StoreController extends BaseController
 {
     public function __invoke(StoreRequest $request)
     {
         $data = $request->validated();
-        $tags = $data['tags'];
-        unset($data['tags']);
-        // dd($tags, $data);
 
-        $post = Post::create($data)
-            ->tags()
-            ->attach($tags, [
-                'created_at' => new \DateTime('now'),
-                'updated_at' => new \DateTime('now')
-            ]);
+        $this->service->store($data);
+        
 
         return redirect()->route('post.index');
     }

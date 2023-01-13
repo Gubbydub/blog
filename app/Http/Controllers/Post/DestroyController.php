@@ -7,7 +7,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\AssignOp\Pow;
 
-class DestroyController extends Controller
+class DestroyController extends BaseController
 {
     public function __invoke(Post $post)
     {

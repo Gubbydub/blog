@@ -28,6 +28,9 @@
         @endforeach
     </table>
     <div>
+        {{ $posts->links() }}
+    </div>
+    <div>
         <a href="{{ route('post.create') }}">
             <button type="button" class="btn btn-primary">Create post</button>
         </a>
