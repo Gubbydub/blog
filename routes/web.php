@@ -12,18 +12,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', 'homeController@index');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Route::get('/test', function () {
 //     return "test";
 // });
 
 //Route::group ------------ Для одноименного типа контроллеров
-Route::group(['namespace' => 'Post'], function() 
-{
+Route::group(['namespace' => 'Post'], function() {
     Route::get('/post', 'IndexController')->name('post.index');
     Route::get('/post/create', 'CreateController')->name('post.create');
     
@@ -37,6 +37,14 @@ Route::group(['namespace' => 'Post'], function()
     Route::patch('/post/{post}', 'UpdateController')->name('post.update');
     // GRUD delete
     Route::delete('/post/{post}', 'DestroyController')->name('post.destroy');
+});
+
+//admin panel-----------------------------------------------------------
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
+    
+    Route::group(['namespace' => 'Post'], function() {
+        Route::get('/post', 'IndexController')->name('admin.post.index');
+    });
 });
 
 
@@ -71,3 +79,7 @@ Route::get('/post/updateOrCreate', 'PostController@updateOrCreate');
 Route::get('/main', 'MainController@index')->name('main.index');
 Route::get('/about', 'AboutController@index')->name('about.index');
 Route::get('/contacts', 'ContactController@index')->name('contact.index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

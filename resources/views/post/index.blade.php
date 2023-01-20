@@ -28,7 +28,7 @@
         @endforeach
     </table>
     <div>
-        {{ $posts->links() }}
+        {{ $posts->withQueryString()->links() }}
     </div>
     <div>
         <a href="{{ route('post.create') }}">
