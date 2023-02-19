@@ -18,7 +18,8 @@
         @foreach ($games as $game)
         <tbody>
             <tr>
-                <th scope="row"><a href="{{ route('games.show', $game->id) }}">{{ $game->id}}</a></th>
+                <!-- <th scope="row"><a href="{{ route('games.show', $game->id) }}">{{ $game->id}}</a></th> -->
+                <th scope="row"><a href="{{ route('game.show', $game->id) }}">{{ $game->id}}</a></th>
                 <td>{{ $game->title}}</td>
                 <td>{{ $game->content}}</td>
                 <td>{{ $game->category_id}}</td>
@@ -28,7 +29,11 @@
         @endforeach
     </table>
     <div>
-        <a href="{{ route('games.create') }}">
+        {{ $games->withQueryString()->links() }}
+    </div>
+    <div>
+        <!-- <a href="{{ route('games.create') }}"> -->
+        <a href="{{ route('game.create') }}">
             <button type="button" class="btn btn-primary">Add new game</button>
         </a>
     </div>

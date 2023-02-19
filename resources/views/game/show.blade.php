@@ -27,14 +27,17 @@
     </table>
     <div class="row">
 
-        <a href="{{ route('games.index') }}">
+        <!-- <a href="{{ route('games.index') }}"> -->
+        <a href="{{ route('game.index') }}">
             <button type="button" class="btn btn-primary mr-3">Back</button>
         </a>
-        <a href="{{ route('games.edit', $game->id) }}">
+        <!-- <a href="{{ route('games.edit', $game->id) }}"> -->
+        <a href="{{ route('game.edit', $game->id) }}">
             <button type="button" class="btn btn-warning mr-3">Edit</button>
         </a>
 
-        <form action="{{ route('games.destroy', $game->id) }}" method='post'>
+        <!-- <form action="{{ route('games.destroy', $game->id) }}" method='post'> -->
+        <form action="{{ route('game.destroy', $game->id) }}" method='post'>
             @csrf
             @method('delete')
             <button type="submit" class="btn btn-danger mr-3">Delete</button>

@@ -9,7 +9,7 @@ use App\Http\Requests\Post\FilterRequest;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\AssignOp\Pow;
 
-class IndexController extends Controller
+class IndexController extends BaseController
 {
     public function __invoke(FilterRequest $request)
     {

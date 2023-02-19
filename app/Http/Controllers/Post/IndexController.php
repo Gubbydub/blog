@@ -14,6 +14,8 @@ class IndexController extends BaseController
     public function __invoke(FilterRequest $request)
     {
 
+        // $this->authorize('view', auth()->user());
+
         $data = $request->validated();
         // dd($data);
         $filter = app()->make(PostFilter::class, ['queryParams' => array_filter($data)]);

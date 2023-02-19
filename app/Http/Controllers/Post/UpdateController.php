@@ -11,8 +11,10 @@ class UpdateController extends BaseController
 {
     public function __invoke(UpdateRequest $request, Post $post)
     {
+        
         $data = $request->validated();
         $this->service->update($post, $data);
+        // dd($data);
         
 
         return redirect()->route('post.show', $post->id);

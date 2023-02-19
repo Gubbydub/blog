@@ -16,7 +16,7 @@
         @foreach ($posts as $post)
         <tbody>
             <tr>
-                <th scope="row"><a href="{{ route('post.show', $post->id) }}">{{ $post->id}}</a></th>
+                <th scope="row"><a href="{{ route('admin.post.show', $post->id) }}">{{ $post->id}}</a></th>
                 <td>{{ $post->title}}</td>
                 <td>{{ $post->content}}</td>
                 <td>{{ $post->category->title}}</td>
@@ -29,7 +29,7 @@
         {{ $posts->withQueryString()->links() }}
     </div>
     <div>
-        <a href="{{ route('post.create') }}">
+        <a href="{{ route('admin.post.create') }}">
             <button type="button" class="btn btn-primary">Create post</button>
         </a>
     </div>

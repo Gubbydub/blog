@@ -23,7 +23,8 @@
                             <a class="nav-link" href="{{ route('post.index') }}">Posts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('games.index') }}">Games</a>
+                            <!-- <a class="nav-link" href="{{ route('games.index') }}">Games</a> -->
+                            <a class="nav-link" href="{{ route('game.index') }}">Games</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('about.index') }}">About</a>
@@ -31,6 +32,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('contact.index') }}">Contacts</a>
                         </li>
+                        @can('view', auth()->user())                            
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.post.index') }}">Admin</a>
+                        </li>
+                        @endcan
                     </ul>
                 </div>
             </nav>

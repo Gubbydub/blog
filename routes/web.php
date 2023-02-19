@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'homeController@index');
+
+Route::get('/', 'homeController@index')->name('home');
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -23,10 +24,10 @@ Route::get('/', 'homeController@index');
 // });
 
 //Route::group ------------ Для одноименного типа контроллеров
-Route::group(['namespace' => 'Post'], function() {
+Route::group(['namespace' => 'Post'], function () {
     Route::get('/post', 'IndexController')->name('post.index');
     Route::get('/post/create', 'CreateController')->name('post.create');
-    
+
     // GRUD store
     Route::post('/post', 'StoreController')->name('post.store');
     // GRUD show
@@ -39,11 +40,41 @@ Route::group(['namespace' => 'Post'], function() {
     Route::delete('/post/{post}', 'DestroyController')->name('post.destroy');
 });
 
+//Route::group -
+Route::group(['namespace' => 'Game'], function () {
+    Route::get('/game', 'IndexController')->name('game.index');
+    Route::get('/game/create', 'CreateController')->name('game.create');
+
+    // GRUD store
+    Route::post('/game', 'StoreController')->name('game.store');
+    // GRUD show
+    Route::get('/game/{game}', 'ShowController')->name('game.show');
+    // GRUD game
+    Route::get('/game/{game}/edit', 'EditController')->name('game.edit');
+    // GRUD update
+    Route::patch('/game/{game}', 'UpdateController')->name('game.update');
+    // GRUD delete
+    Route::delete('/game/{game}', 'DestroyController')->name('game.destroy');
+});
+
+
 //admin panel-----------------------------------------------------------
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
-    
-    Route::group(['namespace' => 'Post'], function() {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admin'], function () {
+
+    Route::group(['namespace' => 'Post'], function () {
         Route::get('/post', 'IndexController')->name('admin.post.index');
+        Route::get('/post/create', 'CreateController')->name('admin.post.create');
+
+        // GRUD store
+        Route::post('/post', 'StoreController')->name('admin.post.store');
+        // GRUD show
+        Route::get('/post/{post}', 'ShowController')->name('admin.post.show');
+        // GRUD edit
+        Route::get('/post/{post}/edit', 'EditController')->name('admin.post.edit');
+        // GRUD update
+        Route::patch('/post/{post}', 'UpdateController')->name('admin.post.update');
+        // GRUD delete
+        Route::delete('/post/{post}', 'DestroyController')->name('admin.post.destroy');
     });
 });
 
