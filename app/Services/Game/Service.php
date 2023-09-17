@@ -13,7 +13,8 @@ class Service
 {
     public function store($data)
     {
-        try { DB::beginTransaction();
+        try {
+            DB::beginTransaction();
             $tags = $data['tags'];
             $category = $data['category'];
             unset($data['tags'], $data['category']);
@@ -25,34 +26,33 @@ class Service
             $game->tags()->attach($tagIds);
 
             DB::commit();
-            
         } catch (\Exception $exception) {
             // dd($exception->getMessage());
             DB::rollBack();
             return $exception->getMessage();
-        }        
+        }
         return $game;
     }
 
     public function update($game, $data)
     {
-        try { DB::beginTransaction();
-        $tags = $data['tags'];
-        $category = $data['category'];
-        unset($data['tags'], $data['category']);
-        
-        $tagIds = $this->getTagIdsWithUpdate($tags);
-        $data['category_id'] = $this->getCategoryIdWithUpdate($category);
+        try {
+            DB::beginTransaction();
+            $tags = $data['tags'];
+            $category = $data['category'];
+            unset($data['tags'], $data['category']);
 
-        $game->update($data);
-        $game->tags()->sync($tagIds);
-        DB::commit();
-            
+            $tagIds = $this->getTagIdsWithUpdate($tags);
+            $data['category_id'] = $this->getCategoryIdWithUpdate($category);
+
+            $game->update($data);
+            $game->tags()->sync($tagIds);
+            DB::commit();
         } catch (\Exception $exception) {
             // dd($exception->getMessage());
             DB::rollBack();
             return $exception->getMessage();
-        } 
+        }
         return $game->fresh();
     }
 
@@ -75,18 +75,18 @@ class Service
         return $tagIds;
     }
 
-      // getCategoryIdWithUpdate function ---------------------
-      private function getCategoryIdWithUpdate($item)
-      {
-        if(!isset($item['id'])) {
+    // getCategoryIdWithUpdate function ---------------------
+    private function getCategoryIdWithUpdate($item)
+    {
+        if (!isset($item['id'])) {
             $category = GameCategory::create($item);
         } else {
             $category = GameCategory::find($item['id']);
             $category->update($item);
             $category = $category->fresh();
         }
-          return $category->id;
-      }
+        return $category->id;
+    }
 
     // getTagIdsWithUpdate function ---------------------
     private function getTagIdsWithUpdate($tags)
